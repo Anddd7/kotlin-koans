@@ -1,6 +1,6 @@
 package ii_collections
 
-import java.util.*
+import java.util.HashSet
 
 /*
  * This part of workshop was inspired by:
@@ -18,7 +18,6 @@ fun example0(list: List<Int>) {
 
 fun Shop.getSetOfCustomers(): Set<Customer> {
     // Return a set containing all the customers of this shop
-    todoCollectionTask()
-//    return this.customers
+    return this.customers.toSet()
 }
 

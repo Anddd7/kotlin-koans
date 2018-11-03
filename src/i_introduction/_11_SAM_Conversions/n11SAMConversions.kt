@@ -2,7 +2,7 @@ package i_introduction._11_SAM_Conversions
 
 import util.TODO
 import util.doc11
-import java.util.*
+import java.util.Collections
 
 fun todoTask11(): Nothing = TODO(
     """
@@ -15,6 +15,6 @@ fun todoTask11(): Nothing = TODO(
 
 fun task11(): List<Int> {
     val arrayList = arrayListOf(1, 5, 2)
-    Collections.sort(arrayList, { x, y -> todoTask11() })
+    arrayList.sortWith(Comparator { x, y ->-Integer.compare(x, y)})
     return arrayList
 }
