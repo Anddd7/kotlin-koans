@@ -2,7 +2,7 @@ package iv_properties
 
 import iii_conventions.MyDate
 import util.TODO
-import java.util.*
+import java.util.Calendar
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -16,10 +16,13 @@ fun todoTask35(): Nothing = TODO(
         Store only the time in milliseconds in 'timeInMillis' property.
         Use the extension functions 'MyDate.toMillis' and 'Long.toDate'.
     """,
-    references = { date: MyDate -> date.toMillis().toDate()}
+    references = { date: MyDate -> date.toMillis().toDate() }
 )
 
 class D {
+    /***
+     * 实际上是通过一个EffectiveDate类进行值的读写, 相当于代理了这个属性
+     */
     var date by EffectiveDate()
     // The property date$delegate of type EffectiveDate is created;
     // the generated 'get' and 'set' accessors for 'date' are delegated to it.
@@ -27,10 +30,12 @@ class D {
 }
 
 class EffectiveDate<R> : ReadWriteProperty<R, MyDate> {
-    var timeInMillis: Long? = null
+    var timeInMillis: Long = 0
 
-    operator override fun getValue(thisRef: R, property: KProperty<*>): MyDate = todoTask35()
-    operator override fun setValue(thisRef: R, property: KProperty<*>, value: MyDate) = todoTask35()
+    operator override fun getValue(thisRef: R, property: KProperty<*>): MyDate = timeInMillis.toDate()
+    operator override fun setValue(thisRef: R, property: KProperty<*>, value: MyDate) {
+        timeInMillis = value.toMillis()
+    }
 }
 
 fun MyDate.toMillis(): Long {
